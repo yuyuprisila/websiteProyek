@@ -15,14 +15,11 @@
 			$data['judul'] = 'Halaman Utama';
 			$data['proyek'] = $this->Data_model->getAllData();
 
-			// Ubah format tanggal
 			foreach ($data['proyek'] as &$proyek) {
-				// Pastikan tanggal valid sebelum format
 				$proyek['tgl_mulai'] = !empty($proyek['tgl_mulai']) ? date('d-m-Y', strtotime($proyek['tgl_mulai'])) : 'Tanggal tidak tersedia';
 				$proyek['tgl_selesai'] = !empty($proyek['tgl_selesai']) ? date('d-m-Y', strtotime($proyek['tgl_selesai'])) : 'Tanggal tidak tersedia';
 			}
 
-			// Kirim data ke view
 			$this->load->view('header', $data);
 			$this->load->view('halamanUtama', $data);
 			$this->load->view('footer'); 
@@ -120,11 +117,6 @@
 					"pimpinanProyek" => $this->input->post('pimpinanProyek', true),
 					"keterangan" => $this->input->post('keterangan', true)
 				];
-				// // Debugging output
-				// echo '<pre>';
-				// print_r($data);
-				// echo '</pre>';
-				// exit;
 				$response = $this->Data_model->edit($id, $data);
 				
 				$this->session->set_flashdata('flash', 'DiUpdate');
